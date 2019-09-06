@@ -52,6 +52,8 @@
     <Compile Include="frmCalculator.Designer.cs">
       <DependentUpon>frmCalculator.cs</DependentUpon>
     </Compile>
+    <Compile Include="Operation.cs" />
+    <Compile Include="OperationType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmCalculator.resx">

@@ -151,13 +151,62 @@ namespace Calculator
         /// </summary>
         private void CalculateEquation()
         {
-            ;
+            var userInput = txtUserInput.Text;
+            var result = ParseOperation();
+
+            FocusInputText();
+        }
+
+        private object ParseOperation()
+        {
+            try
+            {
+                // get the user equation input.
+                var input = txtUserInput.Text;
+
+                //remove all spaces
+                input = input.Replace(" ", "");
+                var operation = new Operation();
+                var leftSide = true;
+
+                //loop through each character of the iput
+                for (int i = 0; i < input.Length; i++)
+                {
+                    if("0123456789.".Any(c=>input[i]==c))
+                    {
+                        if (leftSide)
+                            operation.LeftSide = AddNumberPart(operation.LeftSide, input[i]);
+                    }
+                }
+
+
+
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+
+                return $"Invalid equation.{ex.Message}";
+            }
+        }
+
+        /// <summary>
+        /// Attempt to add a new character to the current number, checking for valid characters as it goes
+        /// </summary>
+        /// <param name="leftSide"></param>
+        /// <param name="newCharacter"></param>
+        /// <returns></returns>
+        private string AddNumberPart(string currentNumber, char newCharacter)
+        {
+            if(newCharacter == '.' && currentNumber.Contains('.'))
+                throw new InvalidOperationException($"Number {currentNumber} already contains a . and another cannot be added");
+
+            return currentNumber + newCharacter;
         }
 
         private void btnDel_Click(object sender, EventArgs e)
         {
-            if (txtUserInput.Text.Length >= txtUserInput.SelectionStart + 1)
-                txtUserInput.Text = txtUserInput.Text.Remove(txtUserInput.SelectionStart, 1);
+            DeleteTextValue();
 
             FocusInputText();
         }
